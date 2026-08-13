@@ -38,5 +38,144 @@
         <li>Research & Statistics</li>
 
       </ol>
+      <section class="notes-library">
+
+    <h2>📚 NurseIQ Notes Library</h2>
+
+    <p>Browse and download nursing notes from the NurseIQ library.</p>
+
+    <div id="notes-container">
+        <p>Loading notes...</p>
+    </div>
+
+</section>
+<script>
+
+const API_KEY = "AIzaSyB8Q0GPvw40oKu7hDgGftFHOJCmNiLTAyw";
+
+const FOLDER_ID = "1ELhAzwU0ZIiUzkpYDRqSNaRWBZRNBXp4";
+
+async function loadNotes() {
+
+    const container = document.getElementById("notes-container");
+
+    const url =
+        "https://www.googleapis.com/drive/v3/files" +
+        "?q=" + encodeURIComponent(
+            `'${FOLDER_ID}' in parents and trashed = false and mimeType = 'application/pdf'`
+        ) +
+        "&pageSize=100" +
+        "&orderBy=name" +
+        "&fields=files(id,name,mimeType,size)" +
+        "&key=" + API_KEY;
+
+    try {
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error("Google Drive API request failed");
+        }
+
+        const data = await response.json();
+
+        container.innerHTML = "";
+
+        if (!data.files || data.files.length === 0) {
+
+            container.innerHTML =
+                "<p>No PDF notes found.</p>";
+
+            return;
+        }
+
+        data.files.forEach(file => {
+
+            const card = document.createElement("div");
+
+            card.className = "note-card";
+
+            const size = file.size
+                ? formatFileSize(Number(file.size))
+                : "";
+
+            card.innerHTML = `
+
+                <div class="note-icon">
+                    📄
+                </div>
+
+                <div class="note-info">
+
+                    <h3>${escapeHTML(file.name)}</h3>
+
+                    <p>PDF ${size}</p>
+
+                    <div class="note-buttons">
+
+                        <a
+                            href="https://drive.google.com/file/d/${file.id}/view"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="view-btn">
+                            📖 View
+                        </a>
+
+                        <a
+                            href="https://drive.google.com/uc?export=download&id=${file.id}"
+                            class="download-btn">
+                            ⬇️ Download
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            container.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <p>⚠️ Unable to load notes.</p>
+        `;
+
+    }
+
+}
+
+
+function formatFileSize(bytes) {
+
+    const mb = bytes / (1024 * 1024);
+
+    if (mb < 1) {
+        return `${(bytes / 1024).toFixed(0)} KB`;
+    }
+
+    return `${mb.toFixed(1)} MB`;
+
+}
+
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+loadNotes();
+
+</script>
 
   </body>
