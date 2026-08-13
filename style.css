@@ -1,0 +1,144 @@
+#NurseIQ {
+  color: rgba(2, 14, 66, 0.993);
+  text-align: center;
+}
+
+#NurseIQ a {
+    text-decoration: none;
+}
+
+div > a {
+    text-decoration: none;
+}
+
+/* General page */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+/* Main heading */
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    color: #12355b;
+    font-size: 40px;
+}
+
+/* Intro image */
+body > img {
+    display: block;
+    width: 220px;
+    height: 150px;
+    object-fit: cover;
+    margin: 20px auto;
+    border-radius: 15px;
+}
+
+/* Introduction text */
+body > strong {
+    display: block;
+    text-align: center;
+    max-width: 700px;
+    margin: 20px auto;
+    font-size: 18px;
+}
+
+/* Navigation */
+nav {
+    background: #12355b;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+nav button:hover {
+    background: #1d6fa5;
+}
+
+/* Books container */
+.books.section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Individual book cards */
+.book {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Card headings */
+.book h2 {
+    color: #12355b;
+    margin-top: 0;
+}
+
+/* Card paragraphs */
+.book p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Buy buttons */
+.btn {
+    background: #12355b;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background: #1d6fa5;
+    transform: scale(1.05);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    .books.section {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+
+    nav button {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
